@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrierung erfolgreich</title>
+    <link rel="stylesheet" href="css/confirmation.css">
+</head>
+<body>
+    <main>
+        <section class="confirmation-section">
+            <h2>Registrierung erfolgreich</h2>
+            <p>
+                <?php
+                $config = include('../config.php');
+                if ($config['email_verification_enabled']) {
+                    echo "Ein Aktivierungslink wurde an Ihre E-Mail-Adresse gesendet. Bitte überprüfen Sie Ihr Postfach.";
+                } else {
+                    echo "Ihr Konto wurde erfolgreich registriert. Sie können sich jetzt einloggen.";
+                }
+                ?>
+            </p>
+            <a href="login.html" class="btn">Zum Login</a>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Interface</title>
+    <link rel="stylesheet" href="css/chat.css">
+</head>
+<body>
+
+    <!-- Oberes Navigationsmenü -->
+    <header class="top-nav">
+        <a href="#" data-page="link1">LINK1</a>
+        <a href="#" data-page="link2">Link2</a>
+        <a href="#" data-page="link3">Link3</a>
+        <a href="#" data-page="link4">Link4</a>
+        <a href="#" data-page="link5">Link5</a>
+        <a href="#" data-page="link6">Link6</a>
+    </header>
+
+    <!-- Hauptcontainer -->
+    <div class="container">
+
+        <!-- Popup Overlay -->
+        <div id="popupOverlay" class="popup-overlay">
+            <div class="popup-content">
+                <span class="close-btn" onclick="closePopup()">×</span>
+                <div id="popupText">Popup-Inhalt wird hier angezeigt.</div>
+            </div>
+        </div>
+
+        <!-- Linke Seitenleiste -->
+        <aside class="sidebar-left">
+            <div class="profile">
+                <img src="https://via.placeholder.com/50" alt="Profilbild" class="profile-pic">
+                <p>Benutzername</p>
+            </div>
+            <nav class="menu">
+                <a href="#" data-page="channel">Channelauswahl</a>
+                <a href="#" data-page="nachrichten">Nachrichten</a>
+                <a href="#" data-page="menu1">Menue1</a>
+                <a href="#" data-page="menu2">Menue2</a>
+                <a href="#" data-page="menu3">Menue3</a>
+                <a href="#" data-page="menu4">Menue4</a>
+                <a href="#" data-page="menu5">Menue5</a>
+            </nav>
+        </aside>
+
+        <!-- Haupt-Chat-Bereich -->
+        <section class="main-content">
+            <!-- Chat-Ausgabe -->
+            <div class="chat-output">
+                <h2>CHATAUSGABE</h2>
+            </div>
+            <!-- Chat-Eingabe -->
+            <div class="chat-input">
+                <input type="text" placeholder="TEXT EINGABE mit Smily BOX">
+                <button>📎</button>
+                <button>😊</button>
+                <button>▶️</button>
+            </div>
+        </section>
+
+        <!-- Rechte Seitenleiste für Benutzerliste -->
+        <aside class="sidebar-right">
+            <h3>Usernick Liste</h3>
+        </aside>
+
+    </div>
+
+    <script src="js/popup.js"></script>
+</body>
+</html>

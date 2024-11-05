@@ -1,0 +1,121 @@
+/* Allgemeine Einstellungen für den Seitenhintergrund und die Schriftart */
+body {
+    background-color: #e6eefc; /* Hellblauer Hintergrund für eine freundliche Optik */
+    font-family: Arial, sans-serif; /* Serifenlose Schriftart für klare Lesbarkeit */
+}
+
+/* Container für den Registrierungsbereich */
+.register-section {
+    width: 90%; /* Breite auf 90% des Bildschirms setzen */
+    max-width: 350px; /* Maximale Breite von 350px, um die Lesbarkeit zu verbessern */
+    margin: 20px auto; /* Zentrierung und Abstand nach oben/unten */
+    padding: 20px; /* Innenabstand für angenehmes Layout */
+    background-color: white; /* Weißer Hintergrund für Kontrast zum Seitenhintergrund */
+    border-radius: 10px; /* Abgerundete Ecken für ein weiches Erscheinungsbild */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Schatteneffekt für leichte 3D-Optik */
+}
+
+/* Überschrift des Registrierungsbereichs */
+.register-section h2 {
+    text-align: center; /* Zentrierte Überschrift */
+    color: #0073e6; /* Blaue Farbe, um die Überschrift hervorzuheben */
+    font-size: 1.5rem; /* Etwas größere Schriftgröße */
+    margin-bottom: 15px; /* Abstand nach unten zur nächsten Komponente */
+}
+
+/* Stil der Formular-Gruppen */
+.form-group {
+    display: flex; /* Horizontale Anordnung von Label und Eingabefeld */
+    align-items: center; /* Vertikale Zentrierung der Inhalte */
+    justify-content: space-between; /* Platz zwischen Label und Eingabefeld */
+    margin-bottom: 10px; /* Abstand zwischen den Formular-Gruppen */
+}
+
+/* Stil der Formular-Labels */
+.form-group label {
+    flex: 0 0 100px; /* Feste Breite für das Label */
+    font-weight: bold; /* Fettgedruckter Text für Hervorhebung */
+    font-size: 0.9rem; /* Schriftgröße leicht reduziert */
+}
+
+/* Stil der Eingabefelder */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group select {
+    flex: 1; /* Flexibles Layout für das Eingabefeld */
+    padding: 5px; /* Innenabstand für bessere Lesbarkeit */
+    border: 1px solid #ccc; /* Grauer Rand als Standardstil */
+    border-radius: 5px; /* Leicht abgerundete Ecken */
+    font-size: 0.85rem; /* Kleinere Schriftgröße für Eingaben */
+    margin-left: 5px; /* Abstand zwischen Label und Eingabefeld */
+}
+
+/* Fehlerzustand für fehlerhafte Eingaben */
+.error {
+    border: 2px solid red; /* Roter Rahmen, um Fehler anzuzeigen */
+    outline: none; /* Entfernt den Standard-Rahmen */
+}
+
+/* Gültiger Zustand für erfolgreiche Eingaben */
+.valid {
+    border: 2px solid black; /* Schwarzer Rahmen, um gültige Eingaben anzuzeigen */
+    outline: none; /* Entfernt den Standard-Rahmen */
+}
+
+/* Stil der Fehlermeldungen */
+.error-message {
+    color: red; /* Rote Farbe für Fehlermeldungen */
+    font-size: 0.8rem; /* Kleinere Schriftgröße */
+    margin-top: 2px; /* Kleiner Abstand nach oben zur Abgrenzung vom Eingabefeld */
+    margin-left: 5px; /* Abstand zur linken Seite */
+}
+
+/* Layout für das Geburtsdatum mit Dropdowns */
+#birthdate {
+    display: flex; /* Flexibles Layout für mehrere Dropdowns nebeneinander */
+    gap: 5px; /* Abstand zwischen den Dropdown-Feldern für Tag, Monat und Jahr */
+}
+
+/* Stil des AGB-Bereichs */
+.terms-text {
+    background-color: #f9f9f9; /* Hellgrauer Hintergrund für die AGB */
+    padding: 10px; /* Innenabstand für Lesbarkeit */
+    margin-top: 10px; /* Abstand zum vorherigen Element */
+    border: 1px solid #ccc; /* Rahmen, um den Bereich abzugrenzen */
+    border-radius: 5px; /* Abgerundete Ecken */
+    height: 50px; /* Feste Höhe für das Scrollen */
+    overflow-y: scroll; /* Ermöglicht vertikales Scrollen bei langen Texten */
+    font-size: 0.8rem; /* Kleinere Schriftgröße */
+}
+
+/* Abstand zur Checkbox der AGB */
+#accept_terms {
+    margin-top: 10px; /* Abstand zur AGB-Checkbox */
+}
+
+/* Stil des Registrierungs-Buttons */
+#register-button {
+    width: 100%; /* Volle Breite des Buttons */
+    padding: 8px; /* Innenabstand für bessere Lesbarkeit */
+    background-color: #0073e6; /* Blauer Hintergrund für den Button */
+    color: white; /* Weißer Text für Kontrast */
+    border: none; /* Kein Rand */
+    border-radius: 5px; /* Abgerundete Ecken */
+    font-size: 0.9rem; /* Größere Schriftgröße für Lesbarkeit */
+    cursor: pointer; /* Zeiger als Mauszeiger, wenn der Button aktiv ist */
+    margin-top: 10px; /* Abstand nach oben */
+}
+
+/* Stil des deaktivierten Buttons */
+#register-button:disabled {
+    background-color: #ccc; /* Grauer Hintergrund, wenn der Button deaktiviert ist */
+    cursor: not-allowed; /* Kein Zeiger, um Deaktivierung anzuzeigen */
+}
+
+/* Layout für das hCaptcha */
+#h-captcha {
+    display: flex; /* Flexibles Layout, um das Captcha zu zentrieren */
+    justify-content: center; /* Zentriert das Captcha horizontal */
+    margin-top: 15px; /* Abstand nach oben zum vorherigen Element */
+}

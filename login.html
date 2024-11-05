@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/login.css">
+    <script src="https://hcaptcha.com/1/api.js" async defer></script>
+</head>
+<body>
+    <main>
+        <section class="login-section">
+            <h2>Login</h2>
+            <div id="feedback" class="feedback-message" style="display: none;"></div>
+            <form id="login-form" method="post" novalidate>
+                <!-- CSRF-Token -->
+                <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+
+                <!-- Benutzername-Eingabefeld -->
+                <div class="form-group">
+                    <label for="username">Benutzername:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+
+                <!-- Passwort-Eingabefeld -->
+                <div class="form-group">
+                    <label for="password">Passwort:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <!-- hCaptcha -->
+                <div class="form-group">
+                    <div class="h-captcha" data-sitekey="fb9ebab4-23a0-4c8a-801a-6df4a1a0f9e0"></div>
+                </div>
+
+                <!-- Passwort vergessen und Login-Button -->
+                <div class="form-footer">
+                    <a href="forgot_password.html" id="forgot-password">Passwort vergessen?</a>
+                    <button type="submit" id="login-button">Login</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch('module/login_user.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const feedbackDiv = document.getElementById('feedback');
+                feedbackDiv.style.display = 'block';
+                feedbackDiv.innerHTML = data.message;
+            })
+            .catch(error => console.error('Fehler:', error));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<?php
+session_start(); // Startet die Session, um Sitzungsvariablen zu speichern, die über mehrere Seitenaufrufe hinweg bestehen.
+
+// Überprüft, ob ein CSRF-Token in der Session gesetzt ist. CSRF-Tokens werden verwendet, um Cross-Site Request Forgery-Angriffe zu verhindern.
+if (!isset($_SESSION['csrf_token'])) {
+    // Wenn kein CSRF-Token vorhanden ist, wird ein neuer Token generiert. Der Token wird als eine 32-stellige Zufallszahl im hexadezimalen Format erstellt.
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+// Setzt die Sprachvariable ($lang) auf die Sprache, die in der URL als "lang" Parameter übergeben wurde,
+// oder auf die Sprache, die in der Session gespeichert ist. Falls keine dieser Optionen verfügbar ist, wird 'de' (Deutsch) als Standard gesetzt.
+$lang = $_GET['lang'] ?? ($_SESSION['lang'] ?? 'de');
+$_SESSION['lang'] = $lang; // Speichert die aktuelle Sprache in der Session.
+
+// Lädt die Sprachdatei basierend auf der gesetzten Sprache. Die Sprachdatei enthält Übersetzungen für den Inhalt der Seite.
+$translations = include __DIR__ . "/lang/{$lang}.php";
+?>
+<!DOCTYPE html>
+<html lang="<?php echo htmlspecialchars($_SESSION['lang']); ?>"> <!-- Legt die Sprache des Dokuments fest. Dies ist wichtig für Suchmaschinen und Screenreader. -->
+<head>
+    <meta charset="UTF-8"> <!-- Stellt sicher, dass das Dokument UTF-8-Zeichenkodierung verwendet, um Sonderzeichen korrekt darzustellen. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsives Design: Passt die Breite des Viewports an die Breite des Geräts an. -->
+    <title><?php echo htmlspecialchars($translations['title']); ?></title> <!-- Setzt den Titel der Seite anhand der Übersetzung aus der Sprachdatei. -->
+    <link rel="stylesheet" href="css/register.css"> <!-- Verknüpft die CSS-Datei zur Gestaltung der Seite. -->
+</head>
+<body>
+    <main>
+        <section class="register-section"> <!-- Definiert den Abschnitt für das Registrierungsformular. -->
+            <h2>Registrierung</h2> <!-- Überschrift für den Registrierungsbereich. -->
+
+            <!-- Formular zum Erfassen der Benutzerregistrierung -->
+            <form action="module/register_user.php" method="post" novalidate> <!-- Das Formular sendet Daten per POST an register_user.php, ohne automatische HTML5-Validierung. -->
+                <!-- Verstecktes Eingabefeld für das CSRF-Token, das bei der Formularübermittlung zur Verifizierung verwendet wird. -->
+                <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+
+                <!-- Benutzername-Eingabefeld -->
+                <div class="form-group">
+                    <label for="username">Benutzername:</label> <!-- Beschriftung für das Eingabefeld Benutzername. -->
+                    <input type="text" id="username" name="username" required> <!-- Eingabefeld für den Benutzernamen. "required" macht es zu einem Pflichtfeld. -->
+                </div>
+
+                <!-- E-Mail-Eingabefeld -->
+                <div class="form-group">
+                    <label for="email">E-Mail:</label> <!-- Beschriftung für das Eingabefeld E-Mail. -->
+                    <input type="email" id="email" name="email" required> <!-- Eingabefeld für die E-Mail-Adresse. "type='email'" prüft auf eine gültige E-Mail. -->
+                </div>
+
+                <!-- Passwort-Eingabefeld -->
+                <div class="form-group">
+                    <label for="password">Passwort:</label> <!-- Beschriftung für das Passwort-Eingabefeld. -->
+                    <input type="password" id="password" name="password" required> <!-- Eingabefeld für das Passwort, als Pflichtfeld. -->
+                </div>
+
+                <!-- Passwort-Wiederholungseingabefeld -->
+                <div class="form-group">
+                    <label for="password_repeat">Passwort wiederholen:</label> <!-- Beschriftung für das Wiederholungseingabefeld. -->
+                    <input type="password" id="password_repeat" name="password_repeat" required> <!-- Eingabefeld für die Passwort-Wiederholung. -->
+                </div>
+
+                <!-- Name-Eingabefeld -->
+                <div class="form-group">
+                    <label for="name">Name:</label> <!-- Beschriftung für das Eingabefeld Name. -->
+                    <input type="text" id="name" name="name" required> <!-- Eingabefeld für den Namen. -->
+                </div>
+
+                <!-- Wohnort-Eingabefeld -->
+                <div class="form-group">
+                    <label for="city">Wohnort:</label> <!-- Beschriftung für das Eingabefeld Wohnort. -->
+                    <input type="text" id="city" name="city" required> <!-- Eingabefeld für den Wohnort. -->
+                </div>
+
+                <!-- Land-Eingabefeld -->
+                <div class="form-group">
+                    <label for="country">Land:</label> <!-- Beschriftung für das Eingabefeld Land. -->
+                    <input type="text" id="country" name="country" required> <!-- Eingabefeld für das Land. -->
+                </div>
+
+                <!-- Altersangabe-Eingabefeld -->
+                <div class="form-group">
+                    <label for="age">Alter:</label> <!-- Beschriftung für das Eingabefeld Alter. -->
+                    <input type="text" id="age" name="age" required> <!-- Eingabefeld für das Alter. -->
+                </div>
+
+                <!-- AGB-Anzeige und Checkbox -->
+                <label for="terms">Allgemeine Geschäftsbedingungen (AGB)</label> <!-- Beschriftung für die AGB-Anzeige. -->
+                <div id="terms" class="terms-text"> <!-- Container für den AGB-Text. -->
+                    <p>Hier steht der Text der AGB. Bitte lesen Sie alles sorgfältig durch...</p> <!-- Beispieltext für die AGB. -->
+                </div>
+                <input type="checkbox" id="accept_terms" name="accept_terms" required> <!-- Checkbox zur Bestätigung der AGB. -->
+                <label for="accept_terms">Ich akzeptiere die AGB</label><br> <!-- Beschriftung für die Checkbox. -->
+
+                <!-- hCaptcha -->
+                <div id="h-captcha"> <!-- Container für hCaptcha. -->
+                    <div class="h-captcha" data-sitekey="fb9ebab4-23a0-4c8a-801a-6df4a1a0f9e0"></div> <!-- hCaptcha-Widget mit Sitekey zur Verifizierung, ob der Benutzer ein Mensch ist. -->
+                </div>
+
+                <!-- Registrierungs-Button, der standardmäßig deaktiviert ist und aktiviert wird, sobald alle Validierungen erfüllt sind -->
+                <button type="submit" id="register-button" disabled>Registrieren</button>
+            </form>
+        </section>
+    </main>
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script> <!-- Einbindung der hCaptcha-API, um das Captcha im Formular anzuzeigen. -->
+    <script src="js/validation.js"></script> <!-- Einbindung des eigenen JavaScript-Codes zur Formularvalidierung. -->
+</body>
+</html>
